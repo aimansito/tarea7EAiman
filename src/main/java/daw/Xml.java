@@ -5,10 +5,12 @@
 package daw;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 /**
  *
@@ -26,5 +28,16 @@ public class Xml {
         serializador.marshal(catApps, System.out);
         serializador.marshal(catApps, new File("./appsxml/" + nomFichero));
         System.out.println("Fichero " + nomFichero + ".xml creado correctamente.");
+    }
+    public static void leerXML(ArrayList<App> apps ) throws JAXBException{
+        
+       // Crea el contexto JAXB 
+       JAXBContext contexto = JAXBContext.newInstance(CatalogoApps.class);
+       // Crea el objeto Unmarshaller
+       Unmarshaller um = contexto.createUnmarshaller();
+       CatalogoApps catalogo = (CatalogoApps) um.unmarshal(new File("./appsXml/appsxml.xml"));
+       ArrayList<App> listaApps = catalogo.getApps();
+       
+       listaApps.forEach(System.out::println);
     }
 }

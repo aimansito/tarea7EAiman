@@ -4,8 +4,10 @@
  */
 package daw;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import javax.xml.bind.JAXBException;
 
 /**
@@ -13,7 +15,8 @@ import javax.xml.bind.JAXBException;
  * @author aiman
  */
 public class Main_2 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JAXBException {
+        Scanner teclado = new Scanner(System.in);
         ArrayList<App> apps = App.crearApps();
         // ej 1
         try {
@@ -34,7 +37,31 @@ public class Main_2 {
         } catch (IOException ex) {
             System.out.println("Error");
         }
-        // ej 4
+        // lectura xml
+        System.out.println("Lectura XML: ");
+        try {
+            Xml.leerXML(apps);
+        } catch (JAXBException jaxbe) {
+            System.out.println("Error");
+        } 
+        // lectura JSON 
+        System.out.println("Lectura JSON: ");
+        try {
+            Json.leerJSON(apps,"./appsjson/appssjson.json");
+        } catch (IOException ex) {
+            System.out.println("Error");
+        }
+        //mostrar ficheros
+        Directorios.listarDirectorio("./appsjson");
+        //Pregunta al usuario el nombre del fichero json (de los anteriores) 
+        //que quiere leer. Una vez leído muestra los datos de esta app por consola.
+        System.out.println("Introduce el archivo a buscar: ");
+        String nombre = teclado.nextLine();
+        Directorios.mostrarFicheros(new File(nombre));
         
+        //borrar archivo
+        Directorios.borrarElemento("./appsjson/appssjson.json");
+        
+        Directorios.listarDirectorio("./appsjson");
     }
 }

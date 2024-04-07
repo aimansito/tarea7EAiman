@@ -76,6 +76,5 @@ public class Main {
         //Guarda los datos de todas las App de la lista, en un fichero JSON llamado 
         //aplicacionesxml.json, dentro del directorio “./appsjson”. Ayúdate del ejemplo del repositorio de clase. Incluye las dependencias necesarias en el pom.xml.
         Directorios.crearDirectorio("./appsjson");
-
     }
 }

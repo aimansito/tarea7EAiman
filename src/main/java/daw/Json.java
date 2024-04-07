@@ -43,4 +43,12 @@ public class Json {
         }
     }
     
+    public static void leerJSON(ArrayList<App> catalogo, String nombre) throws IOException {         
+        ObjectMapper mapeador = new ObjectMapper();         mapeador.registerModule(new JavaTimeModule());
+        catalogo = mapeador.readValue(new File(nombre), 
+                mapeador.getTypeFactory().constructCollectionType(ArrayList.class, App.class));     
+        for (App apps : catalogo) {             
+            System.out.println(apps);         
+        }      
+    }
 }
